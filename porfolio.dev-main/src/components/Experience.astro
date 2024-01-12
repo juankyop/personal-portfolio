@@ -1,0 +1,32 @@
+---
+import Badge from "../components/Badge.astro"
+import ExperienceItem from "./ExperienceItem.astro"
+const EXPERIENCIE = [
+  {
+    date: "Desde Abril 2022",
+    title: "Desarrollador Full-Stack − NTT DATA",
+    description:
+      "Desarrollador senior de una importante multinacional trabajando en un proyecto SCRUM con tecnologías FullStack como React, Java, TypeScript y Javascript.",
+    link: "https://twitch.tv/midudev",
+  },
+  {
+    date: "Junio 2021 - Abril 2022",
+    title: "Desarrollador Full-Stack  − Capgemini",
+    description:
+      "Desarrollador FullStack trabajando en equipo con tecnologías como Spring Boot y React.",
+  },
+]
+---
+
+<ol class="relative border-s border-gray-200 ml-3">
+  {
+    EXPERIENCIE.map((experiencie, index) => (
+      <li class="mb-10 ms-4">
+        {index === 0 && <Badge>Actualmente tengo este puesto</Badge>}
+        
+        <ExperienceItem {...experiencie} />
+      </li>
+    ))
+  }
+</ol>
+

@@ -1,0 +1,90 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Badge from "../components/Badge.astro"
+import SectionContainer from "../components/SectionContainer.astro"
+import LinkedInIcon from "../components/icons/LinkedIn.astro"
+import SocialPill from "../components/SocialPill.astro"
+import GitHubIcon from "../components/icons/GitHub.astro"
+import MailIcon from "../components/icons/Mail.astro"
+import Experience from "../components/Experience.astro"
+import Briefcase from "../components/icons/Briefcase.astro"
+import CodeIcon from "../components/icons/Code.astro"
+import Projects from "../components/Projects.astro"
+---
+
+<Layout
+  title="Porfolio de Juan Carlos Ordóñez Palazón"
+  description="Contrata a Juan Carlos Ordóñez Palazón para crear tu aplicación web o móvil. Desarrollador Web y Creador de Contenido. Especializado en crear aplicaciones únicas."
+>
+  <main class="px-4">
+    <SectionContainer class="py-44 pb-32">
+      <img
+        class="rounded-full size-12 mb-4"
+        src="perfilLink.jpg"
+        alt="perfil photo"
+      />
+      <h1
+        class="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
+      >
+        Hola, soy Juan Carlos <a
+          href="www.linkedin.com/in/juan-carlos-ordóñez-palazón-170113200"
+          target="_blank"
+          rel="noopener"
+          class="flex justify-center items-center"
+        >
+          <Badge>Disponible para trabajar</Badge>
+        </a>
+      </h1>
+      <h2
+  class="text-xl lg:text-2xl text-balance max-w-[700px] text-black dark:text-white"
+>
+  <span>+3 años de experiencia.</span><span
+    class="text-yellow-800 dark:text-yellow-200"
+  >
+    Desarrollador Web Full-Stack</span
+  >
+  . <span class="text-sky-800 dark:text-sky-200"
+    >Especializado en crear aplicaciones únicas.</span
+  >
+  <span class="text-red-800 dark:text-red-200">
+    De Murcia, España</span
+  >.
+</h2>
+
+      <nav class="flex gap-4 mt-8 flex-wrap">
+        <SocialPill href="https://www.linkedin.com/in/juan-carlos-ord%C3%B3%C3%B1ez-palaz%C3%B3n-170113200/">
+          <LinkedInIcon class="size-4 md:size-6" />
+           LinkedIn
+        </SocialPill>
+        <SocialPill href="https://github.com/juankyop">
+          <GitHubIcon class="size-4 md:size-6" />
+           GitHub
+        </SocialPill>
+        <SocialPill href="mailto:jordonezpalazon@gmail.com">
+          <MailIcon class="size-4 md:size-6" />
+           jordonezpalazon@gmail.com
+        </SocialPill>
+      </nav>
+    </SectionContainer>
+
+    <SectionContainer id="experiencia">
+      <h2
+        class="text-3xl font-semibold mb-6 flex gap-x-3 items-center text-black/80 dark:text-white/80"
+      >
+        <Briefcase class="size-7" />
+         Experiencia laboral
+      </h2>
+      <Experience />
+    </SectionContainer>
+
+    <SectionContainer id="proyectos">
+      <h2
+        class="text-3xl font-semibold mb-6 flex gap-x-3 items-center text-black/80 dark:text-white/80"
+      >
+        <CodeIcon class="size-7" />
+         Proyectos
+      </h2>
+      <Projects />
+    </SectionContainer>
+  </main>
+</Layout>
