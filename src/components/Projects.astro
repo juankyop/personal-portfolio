@@ -1,12 +1,20 @@
 ---
 import NextJS from "./icons/NextJS.astro"
 import Tailwind from "./icons/Tailwind.astro"
+import Java from "./icons/Java.astro"
+import SpringBoot from "./icons/SpringBoot.astro"
+import React from "./icons/React.astro"
 
 const TAGS = {
-  NEXT: {
-    name: "Next.js",
-    class: "bg-black text-white",
-    icon: NextJS,
+  SPRING: {
+    name: "Spring Boot",
+    class: "bg-[#6DB33F] text-white",
+    icon: SpringBoot,
+  },
+  REACT: {
+    name: "React",
+    class: "bg-[#61DAFB] text-black",
+    icon: React,
   },
   TAILWIND: {
     name: "Tailwind CSS",
@@ -16,13 +24,13 @@ const TAGS = {
 }
 const PROJECTS = [
   {
-    title: "SVGL - A beautiful library with SVG logos",
+    title: "English Learning Platform",
     description:
-      "Created from scratch with Next.js and Tailwind CSS. It's a library with SVG logos from the most popular brands. Optimized for SEO and performance.",
-    link: "https://svgl.vercel.app/",
-    github: "https://github.com/pheralb/svgl",
-    image: "/projects/svgl.webp",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
+      "Plataforma completa para el estudio del inglés desarrollada con Spring Boot y React. Incluye módulos de teoría gramatical, ejercicios prácticos de vocabulario y gramática, y simuladores de exámenes Cambridge (FCE, CAE, CPE). Con seguimiento de progreso personalizado.",
+    link: "https://english-learning-platform.com",
+    github: "https://github.com/tuusuario/english-platform",
+    image: "/projects/ingles.png",
+    tags: [TAGS.SPRING, TAGS.REACT],
   },
 ]
 ---
@@ -50,7 +58,7 @@ const PROJECTS = [
         loading="lazy"
         class="rounded shadow-2xl shadow-white/10 aspect-video"
         src={image}
-        alt={`Captura de pantalla del proyecto ${image}`}
+        alt={`Captura de pantalla de ${title}`}
       />
     </article>
   ))
