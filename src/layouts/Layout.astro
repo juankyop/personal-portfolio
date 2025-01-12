@@ -3,6 +3,8 @@ import "@fontsource-variable/onest"
 
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
+import ChatbotButton from "../components/Chatbot/ChatbotButton.astro"
+import ChatbotWindow from "../components/Chatbot/ChatbotWindow.astro"
 
 interface Props {
   title: string
@@ -33,6 +35,17 @@ const { description, title } = Astro.props
     <Header />
     <slot />
     <Footer />
+    <ChatbotButton />
+    <ChatbotWindow />
+    
+    <script>
+      import { Chatbot } from "../components/Chatbot/chatbot"
+      
+      // Inicializar el chatbot cuando el DOM esté listo
+      document.addEventListener('DOMContentLoaded', () => {
+        new Chatbot();
+      });
+    </script>
   </body>
 </html>
 
