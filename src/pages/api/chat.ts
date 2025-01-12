@@ -5,7 +5,6 @@ const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 })
 
-// Aquí almacenamos el contexto sobre tu experiencia
 const CONTEXT = `
 Juan Carlos Ordóñez Palazón es un desarrollador Full-Stack con más de 3 años de experiencia en el desarrollo de aplicaciones web empresariales.
 
