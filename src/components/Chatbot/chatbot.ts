@@ -130,8 +130,10 @@ export class Chatbot {
     
     if (isOpening) {
       this.trigger.classList.add('hidden');
+      document.body.style.overflow = 'hidden';
     } else {
       this.trigger.classList.remove('hidden');
+      document.body.style.overflow = '';
     }
   }
 } 
