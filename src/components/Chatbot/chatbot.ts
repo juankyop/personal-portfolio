@@ -39,8 +39,14 @@ export class Chatbot {
 
   private setupEventListeners() {
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-    this.trigger.addEventListener('click', () => this.toggleWindow());
-    this.closeButton.addEventListener('click', () => this.toggleWindow());
+    this.trigger.addEventListener('click', () => {
+      this.toggleWindow();
+      this.trigger.classList.add('hidden');
+    });
+    this.closeButton.addEventListener('click', () => {
+      this.toggleWindow();
+      this.trigger.classList.remove('hidden');
+    });
   }
 
   private async handleSubmit(e: Event) {
@@ -119,6 +125,13 @@ export class Chatbot {
   }
 
   private toggleWindow() {
+    const isOpening = this.window.classList.contains('hidden');
     this.window.classList.toggle('hidden');
+    
+    if (isOpening) {
+      this.trigger.classList.add('hidden');
+    } else {
+      this.trigger.classList.remove('hidden');
+    }
   }
 } 

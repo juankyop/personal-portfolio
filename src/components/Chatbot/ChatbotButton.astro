@@ -1,12 +1,12 @@
 <button
   id="chatbot-trigger"
-  class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-black/10 dark:border-white/10 text-black dark:text-white rounded-full py-3 px-6 shadow-lg transition-all duration-300 z-50 hover:scale-105 hover:bg-white/20 dark:hover:bg-white/10 flex items-center gap-2"
+  class="fixed bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-black/10 dark:border-white/10 text-black dark:text-white rounded-full py-2 sm:py-3 px-4 sm:px-6 shadow-lg transition-all duration-300 z-50 hover:scale-105 hover:bg-white/20 dark:hover:bg-white/10 flex items-center gap-2 opacity-100"
   aria-label="Abrir asistente virtual"
 >
-  <span class="text-sm">¿Tienes alguna pregunta?</span>
+  <span class="text-xs sm:text-sm">¿Tienes alguna pregunta?</span>
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    class="size-5"
+    class="size-4 sm:size-5"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -18,4 +18,21 @@
       d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4z"
     />
   </svg>
-</button> 
+</button>
+
+<style>
+  #chatbot-trigger {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+
+  #chatbot-trigger.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    #chatbot-trigger {
+      max-width: 90%;
+    }
+  }
+</style> 
