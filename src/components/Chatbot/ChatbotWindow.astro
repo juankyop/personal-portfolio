@@ -1,5 +1,10 @@
 ---
-const placeholderMessages = [
+interface Message {
+  type: 'assistant' | 'user' | 'suggestions';
+  content: string | string[];
+}
+
+const placeholderMessages: Message[] = [
   {
     type: "assistant",
     content: `¡Hola! 👋 Este es un chatbot creado por Juan Carlos, entrenado específicamente para responder preguntas sobre su experiencia profesional, proyectos y habilidades.
@@ -43,7 +48,7 @@ Esta es una conversación completamente privada. Ningún mensaje se almacena ni 
         {placeholderMessages.map(message => (
           <div class={`flex ${message.type === 'user' ? 'justify-end' : message.type === 'suggestions' ? 'justify-center flex-col gap-2' : 'justify-start'}`}>
             {message.type === 'suggestions' ? (
-              message.content.map((suggestion) => (
+              (message.content as string[]).map((suggestion: string) => (
                 <button
                   class="suggestion-btn group w-full max-w-[85%] sm:max-w-[80%] text-left px-4 py-3 rounded-xl
                     bg-white/20 dark:bg-white/5
