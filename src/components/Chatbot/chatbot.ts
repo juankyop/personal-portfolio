@@ -1,6 +1,6 @@
 interface Message {
-  type: 'user' | 'assistant';
-  content: string;
+  type: 'user' | 'assistant' | 'suggestions';
+  content: string | string[];
 }
 
 export class Chatbot {
@@ -10,7 +10,9 @@ export class Chatbot {
   private input!: HTMLInputElement;
   private window!: HTMLElement;
   private trigger!: HTMLElement;
+  private navTrigger!: HTMLElement;
   private closeButton!: HTMLElement;
+  private suggestionButtons: HTMLButtonElement[] = [];
 
   constructor() {
     this.initializeElements();
@@ -23,9 +25,10 @@ export class Chatbot {
     const input = document.getElementById('chat-input');
     const window = document.getElementById('chatbot-window');
     const trigger = document.getElementById('chatbot-trigger');
+    const navTrigger = document.getElementById('nav-chatbot-trigger');
     const closeButton = document.getElementById('close-chatbot');
 
-    if (!messagesContainer || !form || !input || !window || !trigger || !closeButton) {
+    if (!messagesContainer || !form || !input || !window || !trigger || !navTrigger || !closeButton) {
       throw new Error('No se pudieron encontrar los elementos necesarios del chatbot');
     }
 
@@ -34,7 +37,9 @@ export class Chatbot {
     this.input = input as HTMLInputElement;
     this.window = window;
     this.trigger = trigger;
+    this.navTrigger = navTrigger;
     this.closeButton = closeButton;
+    this.suggestionButtons = Array.from(document.querySelectorAll('.suggestion-btn'));
   }
 
   private setupEventListeners() {
@@ -43,9 +48,26 @@ export class Chatbot {
       this.toggleWindow();
       this.trigger.classList.add('hidden');
     });
+    this.navTrigger.addEventListener('click', () => {
+      this.toggleWindow();
+      this.trigger.classList.add('hidden');
+    });
     this.closeButton.addEventListener('click', () => {
       this.toggleWindow();
       this.trigger.classList.remove('hidden');
+    });
+    this.suggestionButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const question = button.textContent?.trim() || '';
+        if (question) {
+          this.input.value = question;
+          this.handleSubmit(new Event('submit'));
+          // Ocultar todas las sugerencias después de seleccionar una
+          this.suggestionButtons.forEach(btn => {
+            btn.style.display = 'none';
+          });
+        }
+      });
     });
   }
 
@@ -104,20 +126,54 @@ export class Chatbot {
     this.messages.push(message);
     
     const messageElement = document.createElement('div');
-    messageElement.className = `flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`;
+    messageElement.className = `flex ${
+      message.type === 'user' 
+        ? 'justify-end' 
+        : message.type === 'suggestions' 
+          ? 'justify-center flex-col gap-2' 
+          : 'justify-start'
+    }`;
     
-    messageElement.innerHTML = `
-      <div class="max-w-[80%] rounded-2xl p-4 ${
-        message.type === 'user' 
-          ? 'bg-yellow-500/90 text-white backdrop-blur-sm' 
-          : 'bg-white/60 dark:bg-gray-700/60 text-black dark:text-white backdrop-blur-sm'
-      }">
-        ${message.content}
-      </div>
-    `;
+    if (message.type === 'suggestions' && Array.isArray(message.content)) {
+      messageElement.innerHTML = message.content
+        .map(suggestion => `
+          <button class="suggestion-btn group w-full max-w-[85%] sm:max-w-[80%] text-left px-4 py-3 rounded-xl 
+            bg-white/20 dark:bg-white/5
+            hover:bg-white/30 dark:hover:bg-white/10
+            backdrop-blur-sm border border-white/10 dark:border-white/5
+            transition-all duration-300 text-sm
+            hover:scale-[1.02] hover:shadow-md
+            text-black/80 dark:text-white/90
+            relative overflow-hidden">
+            <span class="relative z-10 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-black/70 dark:text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              ${suggestion}
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+        `).join('');
+    } else {
+      messageElement.innerHTML = `
+        <div class="max-w-[80%] rounded-2xl p-4 ${
+          message.type === 'user' 
+            ? 'bg-yellow-500/90 text-white backdrop-blur-sm' 
+            : 'bg-white/60 dark:bg-gray-700/60 text-black dark:text-white backdrop-blur-sm'
+        }">
+          ${message.content as string}
+        </div>
+      `;
+    }
 
     this.messagesContainer.appendChild(messageElement);
     this.scrollToBottom();
+    
+    // Actualizar los botones de sugerencias después de añadirlos
+    if (message.type === 'suggestions') {
+      this.suggestionButtons = Array.from(messageElement.querySelectorAll('.suggestion-btn'));
+      this.setupSuggestionListeners();
+    }
   }
 
   private scrollToBottom() {
@@ -135,5 +191,21 @@ export class Chatbot {
       this.trigger.classList.remove('hidden');
       document.body.style.overflow = '';
     }
+  }
+
+  private setupSuggestionListeners() {
+    this.suggestionButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const question = button.textContent?.trim() || '';
+        if (question) {
+          this.input.value = question;
+          this.handleSubmit(new Event('submit'));
+          // Ocultar todas las sugerencias después de seleccionar una
+          this.suggestionButtons.forEach(btn => {
+            btn.style.display = 'none';
+          });
+        }
+      });
+    });
   }
 } 

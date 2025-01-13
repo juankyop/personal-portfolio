@@ -13,6 +13,7 @@
       border border-black rounded-full
       px-3 py-1
       flex flex-row items-center
+      gap-2
       bg-neutral-200 dark:bg-black/50
       backdrop-blur-2xl
     `}
@@ -27,5 +28,72 @@
     <a class="hover:bg-white/10 rounded-full px-3 transition" href="#"
       >Contacto</a
     >
+    <button
+      id="nav-chatbot-trigger"
+      class="relative p-[2px] rounded-full transition-all duration-300 hover:scale-105 group"
+    >
+      <span class="relative z-10 flex items-center gap-2 bg-black/80 dark:bg-black/80 text-white rounded-full px-4 py-1.5">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="size-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="2" 
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4z"
+          />
+        </svg>
+        Sobre mí
+      </span>
+      <div class="absolute inset-0 rounded-full bg-gradient-border -z-10"></div>
+    </button>
   </nav>
 </header>
+
+<style>
+  @keyframes borderRotate {
+    100% {
+      --angle: 360deg;
+    }
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .bg-gradient-border {
+    --angle: 0deg;
+    background: conic-gradient(from var(--angle),
+      #1e3a8a,
+      #1e40af,
+      #1d4ed8,
+      #2563eb,
+      #3b82f6,
+      #60a5fa,
+      #93c5fd,
+      #bfdbfe,
+      #dbeafe,
+      #f89917,
+      #f97316,
+      #fb923c,
+      #fdba74,
+      #fed7aa,
+      #ffedd5,
+      #f89917,
+      #f97316,
+      #60a5fa,
+      #3b82f6,
+      #2563eb,
+      #1d4ed8,
+      #1e40af,
+      #1e3a8a
+    );
+    animation: borderRotate 8s linear infinite;
+  }
+</style>
